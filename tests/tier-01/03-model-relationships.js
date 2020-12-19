@@ -29,7 +29,7 @@ describe("Tier One: Student >- Campus Association", () => {
     });
     afterEach(() => db.sync({ force: true }));
 
-    xit("a student may be assigned to at most one campus", async () => {
+    it("a student may be assigned to at most one campus", async () => {
       const sallysCampus = await student1.getCampus();
       expect(sallysCampus.name).to.equal(campus.name);
     });

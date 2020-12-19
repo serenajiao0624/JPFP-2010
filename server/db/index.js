@@ -10,6 +10,7 @@ const Campus = require('./campus')
 // Example:
 //
 // Puppy.belongsTo(Owner)
+Student.belongsTo(Campus);
 
 module.exports = {
   // Include your models in this exports object as well!
