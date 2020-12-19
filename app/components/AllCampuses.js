@@ -6,7 +6,20 @@ import { connect } from "react-redux";
 // bottom) is connected to Redux. Our tests should cover _both_ cases.
 export class AllCampuses extends React.Component {
   render() {
-    return <div />;
+    return (
+      <div>
+        {
+          this.props.campuses.map( campus => {
+            return (
+              <div>
+                { campus.name }
+                <img src={ campus.imageUrl } />
+              </div>
+            );
+          })
+        }
+      </div>
+    );
   }
 }
 

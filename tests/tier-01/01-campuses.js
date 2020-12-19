@@ -70,7 +70,7 @@ describe("Tier One: Campuses", () => {
 
     // This test is interested in the unconnected AllCampuses component. It is
     // exported as a named export in app/components/AllCampuses.js
-    xit("renders the campuses passed in as props", () => {
+    it("renders the campuses passed in as props", () => {
       const wrapper = mount(
         <UnconnectedAllCampuses
           campuses={campuses}
