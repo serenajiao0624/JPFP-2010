@@ -1,9 +1,22 @@
-export const setStudents = () => {};
+import axios from 'axios';
 
-export const fetchStudents = () => {};
+export const SET_STUDENTS = 'SET_STUDENTS';
 
-// Take a look at app/redux/index.js to see where this reducer is
-// added to the Redux store with combineReducers
-export default function studentsReducer() {
-  return null;
+export const setStudents = (students) => ({
+  type: SET_STUDENTS,
+  students
+})
+
+export const fetchStudents = () => {
+  return async (dispatch) => {
+    const students = (await axios.get('/api/students')).data;
+    dispatch(setStudents(students))
+  }
+};
+
+export default function studentsReducer(state = [], action) {
+  if(action.type === SET_STUDENTS) {
+    return action.students
+  }
+  return state
 }

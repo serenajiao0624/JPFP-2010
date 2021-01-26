@@ -1,12 +1,63 @@
 const { green, red } = require("chalk");
-const { db } = require("./server/db");
+const { db, Campus, Student } = require("./server/db");
 
 const seed = async () => {
   try {
     await db.sync({ force: true });
 
-    // seed your database here!
-  } catch (err) {
+    const mars = await Campus.create({
+			name: "Mars Academy",
+			address: "222 Universe",
+			description: "The academy where future people belong to.",
+			imageUrl: "mars.png"
+    });
+    
+		const jupiter = await Campus.create({
+			name: "Jupiter Jumpstart",
+			address: "100 Universe",
+			description: "The biggest leap you will have.",
+			imageUrl: "jupiter.png"
+    });
+    
+    const flatiron = await Campus.create({
+			name: "Flatiron Earth",
+			address: "102 13th Street NYC",
+			description: "Our campus on earth",
+			imageUrl: "flatiron.png"
+		});
+
+		const lucy = await Student.create({
+			firstName: "Lucy",
+			lastName: "Joe",
+			email: "lucy@fullstack.com",
+			gpa: 3.6,
+			campusId: mars.id,
+		});
+
+		const moe = await Student.create({
+			firstName: "Moe",
+			lastName: "Doe",
+			email: "moe@fullstack.com",
+			gpa: 3.4,
+			campusId: mars.id,
+    	});
+    
+    	const karen = await Student.create({
+			firstName: "Karen",
+			lastName: "James",
+			email: "karen@fullstack.com",
+			gpa: 3.4,
+		});
+
+		const mae = await Student.create({
+			firstName: "Mae",
+			lastName: "Jemison",
+			email: "mae@fullstack.com",
+			gpa: 3.8,
+			campusId: jupiter.id,
+		});
+	}
+  catch (err) {
     console.log(red(err));
   }
 };

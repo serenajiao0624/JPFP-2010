@@ -88,7 +88,7 @@ describe("Tier One: Campuses", () => {
       ]);
     });
 
-    xit("renders DIFFERENT campuses passed in as props", () => {
+    it("renders DIFFERENT campuses passed in as props", () => {
       const differentCampuses = [
         {
           id: 3,
@@ -120,14 +120,21 @@ describe("Tier One: Campuses", () => {
       ]);
     });
 
-    xit('*** renders "No Campuses" if passed an empty array of campuses', () => {
-      throw new Error("replace this error with your own test");
+    it('*** renders "No Campuses" if passed an empty array of campuses', () => {
+      const differentCampuses = [];
+      const wrapper = mount(
+        <UnconnectedAllCampuses
+          campuses={differentCampuses}
+          getCampuses={getCampusesSpy}
+        />
+      );
+      expect(wrapper.text()).to.include("No Campuses");
     });
 
     // In a later step, we'll create a thunk, and map that thunk to AllCampuses
     // as getCampuses. For right now, we just need to be sure the component
     // calls it after it mounts.
-    xit("calls this.props.getCampuses after mount", async () => {
+    it("calls this.props.getCampuses after mount", async () => {
       mount(
         <UnconnectedAllCampuses
           campuses={campuses}
@@ -155,7 +162,7 @@ describe("Tier One: Campuses", () => {
         });
       });
 
-      xit("fetchCampuses thunk creator returns a thunk that GETs /api/campuses", async () => {
+      it("fetchCampuses thunk creator returns a thunk that GETs /api/campuses", async () => {
         await fakeStore.dispatch(fetchCampuses());
         const [getRequest] = mockAxios.history.get;
         expect(getRequest).to.not.equal(undefined);
@@ -172,11 +179,12 @@ describe("Tier One: Campuses", () => {
         testStore = createStore(rootReducer);
       });
 
-      xit("*** returns the initial state by default", () => {
-        throw new Error("replace this error with your own test");
+      it("*** returns the initial state by default", () => {
+        const currentState = testStore.getState();
+        expect(currentState.campuses).to.be.deep.equal([]);
       });
 
-      xit("reduces on SET_CAMPUSES action", () => {
+      it("reduces on SET_CAMPUSES action", () => {
         const action = { type: "SET_CAMPUSES", campuses };
 
         const prevState = testStore.getState();
@@ -193,7 +201,7 @@ describe("Tier One: Campuses", () => {
     // This test is expecting your component to dispatch a thunk after it mounts
     // Remember that getCampuses prop from an earlier test? Now's a good time
     // for a mapDispatch.
-    xit("initializes campuses from the server when the application loads the /campuses route", async () => {
+    it("initializes campuses from the server when the application loads the /campuses route", async () => {
       const reduxStateBeforeMount = store.getState();
       expect(reduxStateBeforeMount.campuses).to.deep.equal([]);
       mount(
@@ -211,7 +219,7 @@ describe("Tier One: Campuses", () => {
 
     // This test is expecting your component to render the campuses from the
     // Redux store.  Now's a good time for a mapState.
-    xit("<AllCampuses /> renders campuses from the Redux store", async () => {
+    it("<AllCampuses /> renders campuses from the Redux store", async () => {
       const wrapper = mount(
         <Provider store={store}>
           <MemoryRouter initialEntries={["/campuses"]}>
@@ -242,7 +250,7 @@ describe("Tier One: Campuses", () => {
 
     // This test expects that you've set up a Route for AllCampuses.
     // You should take a look at app/components/Routes.js
-    xit("renders <AllCampuses /> at /campuses", () => {
+    it("renders <AllCampuses /> at /campuses", () => {
       const wrapper = mount(
         <Provider store={store}>
           <MemoryRouter initialEntries={["/campuses"]}>
@@ -274,7 +282,7 @@ describe("Tier One: Campuses", () => {
 
     // Consider writing your GET route in server/api/campuses.js. And don't
     // forget to apply the express router to your API in server/api/index.js!
-    xit("GET /api/campuses responds with all campuses", async () => {
+    it("GET /api/campuses responds with all campuses", async () => {
       const response = await agent.get("/api/campuses").expect(200);
       expect(response.body).to.deep.equal([
         {
@@ -296,7 +304,7 @@ describe("Tier One: Campuses", () => {
     before(() => db.sync({ force: true }));
     afterEach(() => db.sync({ force: true }));
 
-    xit("has fields name, address, imageUrl, description", async () => {
+    it("has fields name, address, imageUrl, description", async () => {
       const campus = await Campus.create({
         name: "Jupiter Jumpstart",
         address: "5.2 AU",
@@ -316,7 +324,7 @@ describe("Tier One: Campuses", () => {
       throw new Error("replace this error with your own test");
     });
 
-    xit("name and address cannot be empty", async () => {
+    it("name and address cannot be empty", async () => {
       const campus = Campus.build({ name: "", address: "" });
       try {
         await campus.validate();
@@ -329,7 +337,7 @@ describe("Tier One: Campuses", () => {
       }
     });
 
-    xit("default imageUrl if left blank", async () => {
+    it("default imageUrl if left blank", async () => {
       const campus = Campus.build({
         name: "Jupiter Jumpstart",
         address: "5.2 AU"
@@ -343,7 +351,7 @@ describe("Tier One: Campuses", () => {
   describe("Seed file", () => {
     beforeEach(seed);
 
-    xit("populates the database with at least three campuses", async () => {
+    it("populates the database with at least three campuses", async () => {
       const seededCampuses = await Campus.findAll();
       expect(seededCampuses).to.have.lengthOf.at.least(3);
     });

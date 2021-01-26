@@ -1,14 +1,22 @@
 import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import AllCampuses from "./AllCampuses";
+import AllStudents from "./AllStudents";
 
 const Routes = () => {
   return (
     <Router>
       <div>
-        <nav>Welcome!</nav>
+        <nav> Welcome! </nav>
+        <div id = "links">
+            <Link to = "/">Home</Link>
+            <Link to = "/campuses">Campuses</Link>
+            <Link to = "/students">Students</Link>
+        </div>
         <main>
           <h1>Welcome to the Margaret Hamilton Academy of JavaScript!</h1>
-          <p>This seems like a nice place to get started with some Routes!</p>
+          <Route path = "/campuses" component = { AllCampuses } exact/>
+          <Route path = "/students" component = { AllStudents } exact/>
         </main>
       </div>
     </Router>

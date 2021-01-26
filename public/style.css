@@ -3,7 +3,7 @@
  * but feel free to change me to your heart's content!
  */
 
-* {
+ * {
   box-sizing: border-box;
   font-family: arial, sans-serif;
 }
@@ -30,4 +30,39 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+#links {
+  display: flex;
+  justify-content: space-between;
+  margin: 2rem;
+  margin-left: 10rem;
+  margin-right: 10rem;
+}
+
+#images {
+  width: 150px;
+  height: 150px;
+}
+
+#campuses {
+  display: flex;
+  justify-content: space-between;
+  margin: 3rem;
+}
+
+#campus {
+  margin: 1rem;
+  text-align: center;
+}
+
+#students {
+  display: flex;
+  justify-content: space-between;
+  margin: 3rem;
+}
+
+#student {
+  margin: 1rem;
+  text-align: center;
 }
